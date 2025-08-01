@@ -32,10 +32,21 @@ qaoa_solver = MinimumEigenOptimizer(qaoa)
 result = qaoa_solver.solve(qubo)
 
 
+binary_solution = result.x  # This is the binary test selection vector
+
+# Define actual or placeholder test names
+test_names = [
+    "com.company.tests.UserServiceTest",
+    "com.company.tests.ClaimsServiceTest",
+    "com.company.tests.PolicyServiceTest",
+    "com.company.tests.NotificationServiceTest",
+    "com.company.tests.BillingServiceTest"
+]
+
+# Select only tests marked with 1 in the binary solution
 selected_tests = [
     test_names[i] for i, bit in enumerate(binary_solution) if bit == 1
 ]
-
 # Ensure reports dir exists
 os.makedirs("reports", exist_ok=True)
 
