@@ -49,6 +49,11 @@ jobs:
           javac -d out src/main/java/com/company/plugin/JavaAnalyzer.java
           java -cp out com.company.plugin.JavaAnalyzer
         continue-on-error: false
+        
+      - name: Run QAOA Python Optimizer
+        run: |
+          cd quantum-plugin/src/main/java/com/company/plugin
+          python3 QAOAOptimizer.py
 
       - name: Show final optimized test suite
         run: cat reports/final-test-suite.txt
