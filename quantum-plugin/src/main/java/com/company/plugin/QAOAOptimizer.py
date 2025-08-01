@@ -31,10 +31,15 @@ qaoa_solver = MinimumEigenOptimizer(qaoa)
 result = qaoa_solver.solve(qubo)
 
 # Solve
-print("Optimal solution:", result.x)
+print("Optimal solution:", result)
 print("Objective value:", result.fval)
 print("Result:", result)
 
-# Write output
+# Make sure the reports directory exists
+os.makedirs("reports", exist_ok=True)
+
+# Write output to a file
 with open("reports/final-test-suite.txt", "w") as f:
-    f.write(str(result.variables))
+    f.write(f"Optimal solution: {result}\n")
+    f.write(f"Objective value: {result.fval}\n")
+    f.write(f"Result: {result}\n")
