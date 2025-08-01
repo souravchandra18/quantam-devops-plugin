@@ -3,7 +3,7 @@ from qiskit_aer import Aer
 from qiskit_optimization.applications import Maxcut
 from qiskit_optimization.converters import QuadraticProgramToQubo
 from qiskit_optimization.algorithms import MinimumEigenOptimizer
-from qiskit.algorithms import QAOA
+from qiskit_algorithms import QAOA
 from qiskit.primitives import Sampler
 
 # Set seed for reproducibility
