@@ -70,9 +70,18 @@ jobs:
           name: final-test-suite
           path: reports
 
-      - name: Run only selected tests
+      - name: Run only Claims-test selected tests
         run: |
-          TESTS=$(cat reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
-          echo "Selected tests: $TESTS"
+          TESTS=$(grep "com.example.claims" reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
+          echo "Running in claims-service: $TESTS"
+          cd claims-service
+          mvn -Dtest="$TESTS" test
+          path: reports/final-test-suite.txt
+
+      - name: Run only User-test selected tests
+        run: |
+          TESTS=$(grep "com.example.user" reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
+          echo "Running in user-service: $TESTS"
+          cd ../user-service
           mvn -Dtest="$TESTS" test
           path: reports/final-test-suite.txt
