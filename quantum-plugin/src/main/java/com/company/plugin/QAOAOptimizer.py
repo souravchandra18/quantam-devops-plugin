@@ -52,7 +52,7 @@ from qiskit_optimization.algorithms import MinimumEigenOptimizer
 from qiskit_algorithms import QAOA
 from qiskit.primitives import Sampler
 from qiskit_optimization.converters import QuadraticProgramToQubo
-from qiskit.utils import algorithm_globals
+from qiskit_utils import algorithm_globals
 from qiskit_optimization.translators import from_docplex_mp
 from docplex.mp.model import Model
 from qiskit_algorithms.optimizers import COBYLA
