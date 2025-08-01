@@ -1,0 +1,28 @@
+name: Quantum DevOps CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - run: mvn clean install
+      - run: mvn jacoco:report -pl user-service,claims-service
+      - run: |
+          mkdir -p reports
+          git diff --name-only origin/main > reports/diff.txt
+      - run: |
+          cd quantum-plugin
+          javac -d out src/main/java/com/company/plugin/JavaAnalyzer.java
+          java -cp out com.company.plugin.JavaAnalyzer
+      - run: cat reports/final-test-suite.txt
+      - run: |
+          TESTS=$(cat reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
+          mvn -Dtest="$TESTS" test
