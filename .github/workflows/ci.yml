@@ -31,7 +31,7 @@ jobs:
           # Cleanup any possibly pre-installed Qiskit parts
           pip uninstall -y qiskit qiskit-aqua qiskit-terra qiskit-optimization || true
           # Install clean versions compatible with Qiskit 1.0+
-          pip install qiskit==1.0.2 qiskit-optimization==0.6.0
+          pip install qiskit==1.0.2 qiskit-optimization==0.6.0 qiskit-aer
 
       - name: Build all services
         run: mvn clean install
