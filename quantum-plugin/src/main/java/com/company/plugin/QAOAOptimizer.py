@@ -36,11 +36,11 @@ binary_solution = result.x  # This is the binary test selection vector
 
 # Define actual or placeholder test names
 test_names = [
-    "com.company.tests.UserServiceTest",
-    "com.company.tests.ClaimsServiceTest",
-    "com.company.tests.UserServiceTest",
-    "com.company.tests.ClaimsServiceTest",
-    "com.company.tests.UserServiceTest"
+    "com.example.claims.tests.UserServiceTest",
+    "com.example.claims.tests.ClaimsServiceTest",
+    "com.example.claims.tests.UserServiceTest",
+    "com.example.claims.tests.ClaimsServiceTest",
+    "com.example.claims.tests.UserServiceTest"
 ]
 
 # Select only tests marked with 1 in the binary solution
