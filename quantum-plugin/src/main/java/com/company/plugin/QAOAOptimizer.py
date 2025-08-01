@@ -37,10 +37,7 @@ binary_solution = result.x  # This is the binary test selection vector
 # Define actual or placeholder test names
 test_names = [
     "com.company.tests.UserServiceTest",
-    "com.company.tests.ClaimsServiceTest",
-    "com.company.tests.PolicyServiceTest",
-    "com.company.tests.NotificationServiceTest",
-    "com.company.tests.BillingServiceTest"
+    "com.company.tests.ClaimsServiceTest"
 ]
 
 # Select only tests marked with 1 in the binary solution
