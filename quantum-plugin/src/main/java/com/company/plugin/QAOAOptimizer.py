@@ -3,7 +3,7 @@ from qiskit_optimization.converters import QuadraticProgramToQubo
 from qiskit_optimization.algorithms import MinimumEigenOptimizer
 from qiskit_algorithms.minimum_eigensolvers import QAOA
 from qiskit.primitives import Estimator
-from qiskit import Aer
+from qiskit_aer import Aer
 from qiskit.utils import algorithm_globals
 import numpy as np
 
