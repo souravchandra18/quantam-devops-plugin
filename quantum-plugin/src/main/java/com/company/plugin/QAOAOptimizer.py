@@ -1,21 +1,37 @@
-from qiskit_optimization import QuadraticProgram
+from qiskit_optimization.applications import Maxcut
+from qiskit_optimization.converters import QuadraticProgramToQubo
 from qiskit_optimization.algorithms import MinimumEigenOptimizer
-from qiskit.algorithms import QAOA
-from qiskit.primitives import Sampler
+from qiskit.algorithms.minimum_eigensolvers import QAOA
+from qiskit.primitives import Estimator
 from qiskit import Aer
 from qiskit.utils import algorithm_globals
+import numpy as np
 
+# Set random seed for reproducibility
 algorithm_globals.random_seed = 123
-qp = QuadraticProgram()
-qp.binary_var("UserServiceTest")
-qp.binary_var("ClaimsServiceTest")
-qp.maximize(linear={"UserServiceTest": 1, "ClaimsServiceTest": 1}, quadratic={("UserServiceTest", "ClaimsServiceTest"): -2})
-backend = Aer.get_backend("aer_simulator")
-qaoa = QAOA(sampler=Sampler(), reps=1)
-optimizer = MinimumEigenOptimizer(qaoa)
-result = optimizer.solve(qp)
 
-with open("../reports/final-test-suite.txt", "w") as f:
-    for var, val in result.samples[0].x.items():
-        if val > 0.5:
-            f.write(var + "\n")
+# Example problem: Optimize test case execution order
+# (This would be generated dynamically based on test cost/coverage)
+w = np.array([
+    [0.0, 1.0, 2.0],
+    [1.0, 0.0, 1.0],
+    [2.0, 1.0, 0.0]
+])
+
+# Build MaxCut QUBO
+maxcut = Maxcut(w)
+problem = maxcut.to_quadratic_program()
+qp2qubo = QuadraticProgramToQubo()
+qubo = qp2qubo.convert(problem)
+
+# Use Estimator backend and new-style QAOA
+qaoa = QAOA(optimizer=None, reps=1, estimator=Estimator())
+optimizer = MinimumEigenOptimizer(qaoa)
+
+# Solve
+result = optimizer.solve(qubo)
+print("Result:", result)
+
+# Write output
+with open("reports/final-test-suite.txt", "w") as f:
+    f.write(str(result.variables))
