@@ -57,25 +57,22 @@ jobs:
           cd quantum-plugin/src/main/java/com/company/plugin
           python3 QAOAOptimizer.py
 
-
-      - name: Show Final Optimized Test Suite
-        run: |
-          if [ -f reports/final-test-suite.txt ]; then
-            echo "Optimized Tests:"
-            cat reports/final-test-suite.txt
-          else
-            echo "final-test-suite.txt not found!"
-            exit 1
-          fi
-
-      - name: Run Only Selected Tests
-        run: |
-          TESTS=$(cat reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
-          echo "Running only optimized tests: $TESTS"
-          mvn -Dtest="$TESTS" test
-
-      - name: Upload QAOA Result Artifact
+      - name: Upload final-test-suite.txt as artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: qaoa-final-test-suite
+          name: final-test-suite
+          path: quantum-plugin/src/main/java/com/company/plugin/reports/final-test-suite.txt
+
+      - name: Download final-test-suite.txt artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: final-test-suite
+          path: reports
+
+      - name: Run only selected tests
+        run: |
+          TESTS=$(cat reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
+          echo "Selected tests: $TESTS"
+          mvn -Dtest="$TESTS" test
           path: reports/final-test-suite.txt
