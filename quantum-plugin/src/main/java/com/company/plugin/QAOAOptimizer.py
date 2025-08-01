@@ -7,6 +7,7 @@ from qiskit_algorithms.optimizers import COBYLA
 from qiskit.primitives import Sampler
 
 import numpy as np
+import os
 
 # Set up graph weights
 w = np.array([
