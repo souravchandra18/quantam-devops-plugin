@@ -58,11 +58,24 @@ jobs:
           python3 QAOAOptimizer.py
 
 
-      - name: Show final optimized test suite
-        run: cat reports/final-test-suite.txt
+      - name: Show Final Optimized Test Suite
+        run: |
+          if [ -f reports/final-test-suite.txt ]; then
+            echo "Optimized Tests:"
+            cat reports/final-test-suite.txt
+          else
+            echo "final-test-suite.txt not found!"
+            exit 1
+          fi
 
-      - name: Run only selected tests
+      - name: Run Only Selected Tests
         run: |
           TESTS=$(cat reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
-          echo "Selected tests: $TESTS"
+          echo "Running only optimized tests: $TESTS"
           mvn -Dtest="$TESTS" test
+
+      - name: Upload QAOA Result Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qaoa-final-test-suite
+          path: reports/final-test-suite.txt
