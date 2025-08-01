@@ -25,7 +25,7 @@ qaoa = QAOA(sampler=Sampler(), reps=1)
 optimizer = MinimumEigenOptimizer(qaoa)
 
 # Solve the problem
-result = optimizer.solve(qubo_problem))
+result = optimizer.solve(qubo_problem)
 
 # Solve
 result = optimizer.solve(qubo)
