@@ -1,2 +1,2 @@
-qiskit==0.43.3
-qiskit-optimization==0.5.0
+qiskit==1.0.0
+qiskit-optimization==0.6.0
