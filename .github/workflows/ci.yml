@@ -81,5 +81,5 @@ jobs:
         run: |
           TESTS=$(grep "com.example.user" reports/final-test-suite.txt | tr '\n' ',' | sed 's/,$//')
           echo "Running in user-service: $TESTS"
-          cd ../user-service
+          ls -ltr
           mvn -Dtest="$TESTS" test
